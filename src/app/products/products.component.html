@@ -1,0 +1,203 @@
+<div class="container-fluid page">
+  <div class="d-flex page__box p-3">Products</div>
+  <div class="page__content shadow position-relative">
+    <div class="page__content-data position-absolute w-100">
+      <div class="content">
+        <div class="controls my-3 p-3 d-flex justify-content-between">
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add">Add Product</button>
+          <input type="text" class="form-control w-25" [(ngModel)]="term" placeholder="Search by name">
+        </div>
+        <div class="container">
+          <div class="row">
+            <table class="table table-bordered text-center">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>image</th>
+                  <th>Category</th>
+                  <th>Brand</th>
+                  <th>Discount</th>
+                  <th><i class="fa-solid fa-pen-to-square"></i></th>
+                  <th><i class="fa-solid fa-trash"></i></th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- <tr *ngFor="let item of products"> -->
+                <tr *ngFor="let item of (products|paginate:{itemsPerPage: 4, currentPage:p})|search:term">
+                  <td>{{item.productId}}</td>
+                  <td><a routerLink="/productDetails/{{item.productId}}">{{item.name}}</a></td>
+                  <td *ngIf="item.productImages[0];else image"><img class="w-100 my-3" src="{{item.productImages[0].url}}" alt=""></td>
+                  <ng-template #image>
+                    <td>image</td>
+                  </ng-template>
+                  <td>{{item.category.name}}</td>
+                  <td>{{item.brand.name}}</td>
+                  <td *ngIf="item.discount ;else disc">{{item.discount}}%</td>
+                  <ng-template #disc>
+                    <td>0</td>
+                  </ng-template>
+                  <td><button class="btn btn-primary" (click)="sendProductForUpdate(item.productId)">Edit</button></td>
+                  <td><button class="btn btn-danger" (click)="GetCurrentId(item.productId)" data-bs-toggle="modal" data-bs-target="#delete">Remove</button></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="paginationControl text-center my-3">
+              <pagination-controls (pageChange)="p= $event"></pagination-controls>
+            </div>
+            <!-- <div class="list">
+              <ul>
+                <li *ngFor="let item of collection | paginate: { itemsPerPage: 10, currentPage:p}">{{ item }}</li>
+              </ul>
+
+              <pagination-controls (pageChange)="p= $event"></pagination-controls>
+          </div> -->
+            <!-- <button (click)="GetCurrentId(item.productId)" data-bs-toggle="modal" data-bs-target="#update"><i class="fa-solid fa-pen-to-square text-warning"></i></button> -->
+
+              <!-- <td><button (click)="GetCurrentId(item.productId)" data-bs-toggle="modal" data-bs-target="#delete"><i class="fa-solid fa-trash-can text-danger"></i></button></td> -->
+          </div>
+        </div>
+      </div>
+      </div>
+  </div>
+</div>
+
+              <!-- delete -->
+              <!-- <div class="modal fade" id="deletebtn" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title text-dark" id="exampleModalLabel">Are you sure?</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center text-info">
+                      Do you really want to delete ?
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-info" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+
+<!-- add modal  -->
+
+<div class="modal fade" id="add" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Product</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form [formGroup]="productform" class="w-75 mx-auto" (ngSubmit)="AddProduct(productform)">
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+          <div class="name my-2 col-md-6">
+            <label for="name">Name<span class="text-danger ms-2">*</span></label>
+            <input type="text" id="name" formControlName="name" placeholder="Product Name" class="form-control">
+            <div class="errs" *ngIf="productform.get('name')?.errors && productform.get('name')?.touched">
+              <p class="text-danger" *ngIf="productform.get('name')?.errors?.['required']">name is required</p>
+              <p class="text-danger" *ngIf="productform.get('name')?.errors?.['pattern']">Name must be letters only ,min letteris is 2 , max letters is 30</p>
+            </div>
+          </div>
+          <div class="Price my-2 col-md-6">
+            <label for="price">Price<span class="text-danger ms-2">*</span></label>
+            <input type="text" id="price" formControlName="price" placeholder="Product Price" class="form-control">
+            <div class="errs" *ngIf="productform.get('price')?.errors && productform.get('price')?.touched">
+              <p class="text-danger" *ngIf="productform.get('price')?.errors?.['required']">price is required</p>
+              <p class="text-danger" *ngIf="productform.get('price')?.errors?.['pattern']">price must be in valid form</p>
+            </div>
+          </div>
+          <div class="category my-2 col-md-6">
+            <label for="category">Category<span class="text-danger ms-2">*</span></label>
+            <select id="category" formControlName="categoryId" class="form-select" id="Category">
+              <option [ngValue]="null" selected disabled>Select Category</option>
+              <option *ngFor="let category of categories" ngValue="{{category.id}}">{{category.name}}</option>
+            </select>
+            <div class="errs" *ngIf="productform.get('categoryId')?.errors && productform.get('categoryId')?.touched">
+              <p class="text-danger" *ngIf="productform.get('categoryId')?.errors?.['required']">categoryId is required</p>
+            </div>
+          </div>
+          <div class="brand my-2 col-md-6">
+            <label for="brand">Brand<span class="text-danger ms-2">*</span></label>
+            <select id="brand" required formControlName="brandId" class="form-select" id="Brand">
+              <option [ngValue]="null" selected disabled>Select Brand</option>
+              <option *ngFor="let brand of brands" ngValue="{{brand.id}}"> {{brand.name}} </option>
+            </select>
+            <div class="errs" *ngIf="productform.get('brandId')?.errors && productform.get('brandId')?.touched">
+              <p class="text-danger" *ngIf="productform.get('brandId')?.errors?.['required']">brandId is required</p>
+            </div>
+          </div>
+          <div class="Discount my-2 col-md-3">
+            <label for="Discount">Discount</label>
+            <input id="Discount" type="number" max="100" min="1" formControlName="discount" placeholder="Discount" class="form-control">
+            <div class="errs" *ngIf="productform.get('discount')?.errors && productform.get('discount')?.touched">
+              <p class="text-danger" *ngIf="productform.get('discount')?.errors?.['min']">discount min is 1%</p>
+              <p class="text-danger" *ngIf="productform.get('discount')?.errors?.['max']">discount max is 100%</p>
+            </div>
+          </div>
+          <div class="Stoke my-2 col-md-3">
+            <label for="stoke">Stoke<span class="text-danger ms-2">*</span></label>
+            <input id="stoke" type="number" min="1" max="1000" formControlName="stock" placeholder="Product Stoke" class="form-control">
+          </div>
+          <div class="Size my-2 col-md-3">
+            <label for="size">Size</label>
+            <input id="size" type="number" formControlName="size" placeholder="Product Size" class="form-control">
+          </div>
+          <div class="Weight my-2 col-md-3">
+            <label for="weight">Weight</label>
+            <input id="weight" type="number" formControlName="weight" placeholder="Product Weight" class="form-control">
+          </div>
+          <div class="name my-2 col-md-6">
+            <label for="First_Available">Date_First_Available<span class="text-danger ms-2">*</span></label>
+            <input id="First_Available" type="date" formControlName="date_First_Available" placeholder="Date_First_Available" class="form-control">
+          </div>
+          <div class="image my-2 col-md-6">
+            <label for="image">Images<span class="text-danger ms-2">*</span></label>
+            <input id="image" #myInputFile multiple="" type="file" class="form-control" (change)="uploadPhoto($event.target)">
+          </div>
+          <div class="Description my-2">
+            <label for="Description">Description<span class="text-danger ms-2">*</span></label>
+            <textarea name="Description" formControlName="description" id="Description" class="form-control"></textarea>
+            <div class="errs" *ngIf="productform.get('description')?.errors && productform.get('description')?.touched">
+              <p class="text-danger" *ngIf="productform.get('description')?.errors?.['required']">description is required</p>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button [disabled]="productform.invalid" type="submit" class="special btn btn-primary" >Add</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" #closeModal>Close</button>
+        <!-- second way to close modal-->
+        <!-- id="closeModalButton" [hidden]="true" data-target="#add" -->
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+<!-- delete modal -->
+<div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger" id="staticBackdropLabel">Delete Product</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-secondary fw-bold">
+        Are you sure you want to delete this item?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="DeleteProduct()" data-bs-dismiss="modal">Delete</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+

@@ -1,0 +1,100 @@
+<div class="container-fluid page">
+  <div class="d-flex page__box p-3">Update Product</div>
+  <div class="page__content shadow p-3 position-relative">
+    <div class="page__content-data position-absolute">
+      <div class="update my-3">
+        <form [formGroup]="productUpdateform" class="w-50 mx-auto" (ngSubmit)="UpdateProduct(productUpdateform)">
+          <div class="modal-body">
+            <div class="container">
+              <div class="row">
+              <div class="name my-2 col-md-6">
+                <label for="name">Name<span class="text-danger ms-2">*</span></label>
+                <input type="text" id="name" formControlName="name" placeholder="Product Name" class="form-control">
+                <div class="errs" *ngIf="productUpdateform.get('name')?.errors && productUpdateform.get('name')?.touched">
+                  <p class="text-danger" *ngIf="productUpdateform.get('name')?.errors?.['required']">name is required</p>
+                  <p class="text-danger" *ngIf="productUpdateform.get('name')?.errors?.['pattern']">Name must be letters only ,min letteris is 2 , max letters is 30</p>
+                </div>
+              </div>
+              <div class="Price my-2 col-md-6">
+                <label for="price">Price<span class="text-danger ms-2">*</span></label>
+                <input type="text" id="price" formControlName="price" placeholder="Product Price" class="form-control">
+                <div class="errs" *ngIf="productUpdateform.get('price')?.errors && productUpdateform.get('price')?.touched">
+                  <p class="text-danger" *ngIf="productUpdateform.get('price')?.errors?.['required']">price is required</p>
+                  <p class="text-danger" *ngIf="productUpdateform.get('price')?.errors?.['pattern']">price must be in valid form</p>
+                </div>
+              </div>
+              <div class="category my-2">
+                <label for="Category">Category<span class="text-danger ms-2">*</span></label>
+                <select id="Category" formControlName="categoryId" class="form-select" id="Category">
+                  <option [ngValue]="null" selected disabled>Select Category</option>
+                  <option *ngFor="let category of categories" ngValue="{{category.id}}">{{category.name}}</option>
+                </select>
+                <div class="errs" *ngIf="productUpdateform.get('categoryId')?.errors && productUpdateform.get('categoryId')?.touched">
+                  <p class="text-danger" *ngIf="productUpdateform.get('categoryId')?.errors?.['required']">categoryId is required</p>
+                </div>
+              </div>
+              <div class="brand my-2">
+                <label for="Brand">Brand<span class="text-danger ms-2">*</span></label>
+                <select id="Brand" required formControlName="brandId" class="form-select" id="Brand">
+                  <option [ngValue]="null" selected disabled>Select Brand</option>
+                  <option *ngFor="let brand of brands" ngValue="{{brand.id}}"> {{brand.name}} </option>
+                </select>
+                <div class="errs" *ngIf="productUpdateform.get('brandId')?.errors && productUpdateform.get('brandId')?.touched">
+                  <p class="text-danger" *ngIf="productUpdateform.get('brandId')?.errors?.['required']">brandId is required</p>
+                </div>
+              </div>
+              <div class="Discount my-2 col-md-3">
+                <label for="Discount">Discount</label>
+                <input id="Discount" type="number" max="100" min="1" formControlName="discount" placeholder="Discount" class="form-control">
+                <div class="errs" *ngIf="productUpdateform.get('discount')?.errors && productUpdateform.get('discount')?.touched">
+                  <p class="text-danger" *ngIf="productUpdateform.get('discount')?.errors?.['min']">discount min is 1%</p>
+                  <p class="text-danger" *ngIf="productUpdateform.get('discount')?.errors?.['max']">discount max is 100%</p>
+                </div>
+              </div>
+              <div class="Stoke my-2 col-md-3">
+                <label for="stoke">Stoke<span class="text-danger ms-2">*</span></label>
+                <input id="stoke" type="number" min="1" max="1000" formControlName="stock" placeholder="Product Stoke" class="form-control">
+              </div>
+              <div class="Size my-2 col-md-3">
+                <label for="size">Size</label>
+                <input id="size" type="number" formControlName="size" placeholder="Product Size" class="form-control">
+              </div>
+              <div class="Weight my-2 col-md-3">
+                <label for="weight">Weight</label>
+                <input id="weight" type="number" formControlName="weight" placeholder="Product Weight" class="form-control">
+              </div>
+              <div class="name my-2">
+                <label for="First_Available">Date_First_Available<span class="text-danger ms-2">*</span></label>
+                <input id="First_Available" type="date" formControlName="date_First_Available" placeholder="Date_First_Available" class="form-control">
+              </div>
+              <div class="image my-2">
+                <label for="image">Images<span class="text-danger ms-2">*</span></label>
+                <input id="image" #myInputFile multiple="" type="file" class="form-control" (change)="uploadPhoto($event.target)">
+              </div>
+              <div class="allimages d-flex flex-wrap justify-content-start">
+                <div class="unitIamage position-relative" *ngFor="let item of productImages">
+                  <div class="layout"><button class="btn btn-danger" (click)="DeleteImage(item.id)"><i class="fa-solid fa-trash"></i></button></div>
+                  <img src="{{item.url}}" alt="image">
+                </div>
+              </div>
+              <div class="Description my-2">
+                <label for="Description">Description<span class="text-danger ms-2">*</span></label>
+                <textarea name="Description" formControlName="description" id="Description" class="form-control"></textarea>
+                <div class="errs" *ngIf="productUpdateform.get('description')?.errors && productUpdateform.get('description')?.touched">
+                  <p class="text-danger" *ngIf="productUpdateform.get('description')?.errors?.['required']">description is required</p>
+                </div>
+              </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button [disabled]="productUpdateform.invalid" type="submit" class="special btn btn-primary mx-auto">Update</button>
+            <!-- second way to close modal-->
+            <!-- id="closeModalButton" [hidden]="true" data-target="#add" -->
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>

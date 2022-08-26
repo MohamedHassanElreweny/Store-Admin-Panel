@@ -1,0 +1,22 @@
+<div class="container-fluid page">
+  <div class="d-flex page__box p-3">Dashboard</div>
+  <div class="page__content shadow position-relative">
+    <div class="page__content-data position-absolute w-100">
+      <div class="container">
+        <div class="row">
+          <div class="chart1 col-md-5">
+            <div class="chart-wrapper">
+              <canvas baseChart
+              [datasets]="barChartData"
+              [labels]="barChartLabels"
+              [options]="barChartOptions"
+              [plugins]="barChartPlugins"
+              [legend]="barChartLegend">
+            </canvas>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

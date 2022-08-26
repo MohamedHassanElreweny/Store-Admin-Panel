@@ -1,0 +1,33 @@
+<mat-nav-list>
+  <div class="logo py-4">
+    <!-- <img src="../../assets/logo2.png"  alt="Company Logo" /> -->
+    <h3>WOODSTOCK</h3>
+  </div>
+  <mat-divider></mat-divider>
+  <!-- <h2 matSubheader class="mt-2">APPLICATIONS</h2> -->
+
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="/home">
+    <mat-icon>home</mat-icon> Home
+  </a>
+  <a mat-list-item routerLinkActive="list-item-active" *ngIf="isLogin" routerLink="/dashboard">
+    <mat-icon> dashboard</mat-icon> Dashboard
+  </a>
+  <a mat-list-item routerLinkActive="list-item-active" *ngIf="isLogin" routerLink="categories">
+    <mat-icon><i class="fa-solid fa-list"></i></mat-icon> Categories
+</a>
+<a mat-list-item routerLinkActive="list-item-active" *ngIf="isLogin" routerLink="brands">
+  <mat-icon><i class="fa-solid fa-heart-circle-check"></i></mat-icon> Brands
+</a>
+<a mat-list-item routerLinkActive="list-item-active" *ngIf="isLogin" routerLink="products">
+  <mat-icon><i class="fa-brands fa-product-hunt"></i></mat-icon> Products
+</a>
+<!-- <a mat-list-item routerLinkActive="list-item-active" *ngIf="isLogin" routerLink="profile">
+  <mat-icon><i class="fa-solid fa-user"></i></mat-icon> Profile
+</a> -->
+<a mat-list-item routerLinkActive="list-item-active" *ngIf="!isLogin" routerLink="login">
+  <mat-icon><i class="fa-solid fa-arrow-right-to-bracket"></i></mat-icon> Login
+</a>
+<!-- <a mat-list-item routerLinkActive="list-item-active" *ngIf="!isLogin" routerLink="register">
+  <mat-icon><i class="fa-regular fa-registered"></i></mat-icon> Register
+</a> -->
+</mat-nav-list>

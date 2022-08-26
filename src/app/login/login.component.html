@@ -1,0 +1,39 @@
+<div class="container-fluid page">
+  <div class="d-flex page__box p-3">Login</div>
+  <div class="page__content shadow position-relative">
+    <div class="page__content-data position-absolute w-100">
+      <div class="content">
+          <form [formGroup]="loginForm" (ngSubmit)="login(loginForm)" class="w-50 my-1 mx-auto">
+            <div class="row">
+            <h3 class="text-center">Sign In</h3>
+            <div class="username">
+              <label for="username">User Name</label>
+              <input formControlName="username" type="text" class="form-control" id="username">
+              <div class="errs" *ngIf="loginForm.get('username')?.errors && loginForm.get('username')?.touched">
+                <p class="text-danger" *ngIf="loginForm.get('username')?.errors?.['required']">username is required</p>
+                <p class="text-danger" *ngIf="loginForm.get('username')?.errors?.['pattern']">username must be letters only ,min letteris is 2 , max letters is 30</p>
+              </div>
+            </div>
+            <div class="password">
+              <label for="password">password</label>
+              <input formControlName="password" type="password" class="form-control" id="password">
+              <div class="errs" *ngIf="loginForm.get('password')?.errors && loginForm.get('password')?.touched">
+                <p class="text-danger" *ngIf="loginForm.get('password')?.errors?.['required']">password is required</p>
+                <p class="text-danger" *ngIf="loginForm.get('password')?.errors?.['pattern']">password must have capital letters and numbers</p>
+              </div>
+            </div>
+          </div>
+          <p class="text-danger p-1 m-0">{{errorMessage}}</p>
+          <button [disabled]="loginForm.invalid" type="submit" class="btn btn-primary special w-100 mt-3">Login</button>
+          <div class="bigor position-relative">
+            <h3 class="or">OR</h3>
+          </div>
+          <div class="routers">
+            <p class="text-primary p-1 m-0 text-center"><span>Create new Admin ? </span><a routerLink="/register" routerLinkActive="router-link-active" > Sign UP</a></p>
+          </div>
+          </form>
+
+      </div>
+    </div>
+  </div>
+</div>

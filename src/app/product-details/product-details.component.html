@@ -1,0 +1,43 @@
+<div class="container-fluid page">
+  <div class="d-flex page__box p-3">Details</div>
+  <div class="page__content shadow  position-relative">
+    <div class="page__content-data position-absolute w-100">
+      <div class=" my-5 box mx-auto">
+        <div class="row">
+          <div class="images col-md-5">
+            <div class="image my-1" *ngFor="let item of images">
+              <img src="{{item.url}}" alt="image" class="w-100">
+            </div>
+          </div>
+          <div class="details col-md-7">
+            <div class="info">
+              <h3 class="mb-3">{{product.name}}</h3>
+              <div class="d-flex justify-content-around">
+                <ul>
+                  <li><span>Category: </span><h4>{{product.category?.name}}</h4></li>
+                  <li><span>Price: </span><h4>{{product.price}}</h4></li>
+                  <li><span>first Available: </span><h4>{{product.date_First_Available|date}}</h4></li>
+                  <li><span>Weight: </span><h4 *ngIf="product.weight;else weight">{{product.weight}}</h4></li>
+                  <ng-template #weight>
+                    <h4>-</h4>
+                  </ng-template>
+                </ul>
+                <ul>
+                  <li><span>Brand: </span><h4>{{product.brand?.name}}</h4></li>
+                  <li><span>discount: </span><h4>{{product.discount}}</h4></li>
+                  <li><span>Stock: </span><h4>{{product.stock}}</h4></li>
+                  <li><span>Size: </span><h4 *ngIf="product.size;else size">{{product.size}}</h4></li>
+                  <ng-template #size>
+                    <h4>-</h4>
+                  </ng-template>
+                </ul>
+              </div>
+              <h6 class="w-75 mx-auto">Product Information</h6>
+              <p class="w-75 mx-auto">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas nulla quis est commodi laboriosam libero?</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,107 @@
+<div class="container-fluid page">
+  <div class="d-flex page__box p-3">Register</div>
+  <div class="page__content shadow position-relative">
+    <div class="page__content-data position-absolute w-100">
+      <div class="container">
+            <form [formGroup]="registerForm" (ngSubmit)="register(registerForm)" class="w-50 my-5 mx-auto">
+              <div class="row">
+                <h3 class="text-center">Sign Up</h3>
+                <div class="firstName col-md-6">
+                  <label for="firstName">First Name</label>
+                  <input formControlName="firstName" type="text" class="form-control" id="firstName">
+                  <div class="errs" *ngIf="registerForm.get('firstName')?.errors && registerForm.get('firstName')?.touched">
+                    <p class="text-danger" *ngIf="registerForm.get('firstName')?.errors?.['required']">firstName is required</p>
+                    <p class="text-danger" *ngIf="registerForm.get('firstName')?.errors?.['pattern']">firstName must be letters only ,min letteris is 2 , max letters is 30</p>
+                  </div>
+                </div>
+                <div class="lastName col-md-6">
+                  <label for="lastName">Last Name</label>
+                  <input formControlName="lastName" type="text" class="form-control" id="lastName">
+                  <div class="errs" *ngIf="registerForm.get('lastName')?.errors && registerForm.get('lastName')?.touched">
+                    <p class="text-danger" *ngIf="registerForm.get('lastName')?.errors?.['required']">lastName is required</p>
+                    <p class="text-danger" *ngIf="registerForm.get('lastName')?.errors?.['pattern']">lastName must be letters only ,min letteris is 2 , max letters is 30</p>
+                  </div>
+                </div>
+                <div class="username">
+                  <label for="username">User Name</label>
+                  <input formControlName="username" type="text" class="form-control" id="username">
+                  <div class="errs" *ngIf="registerForm.get('username')?.errors && registerForm.get('username')?.touched">
+                    <p class="text-danger" *ngIf="registerForm.get('username')?.errors?.['required']">username is required</p>
+                    <p class="text-danger" *ngIf="registerForm.get('username')?.errors?.['pattern']">username must be letters only ,min letteris is 2 , max letters is 30</p>
+                  </div>
+                </div>
+                <div class="email">
+                  <label for="email">email</label>
+                  <input formControlName="email" type="text" class="form-control" id="email">
+                  <div class="errs" *ngIf="registerForm.get('email')?.errors && registerForm.get('email')?.touched">
+                    <p class="text-danger" *ngIf="registerForm.get('email')?.errors?.['required']">email is required</p>
+                    <p class="text-danger" *ngIf="registerForm.get('email')?.errors?.['pattern']">email doesn't match</p>
+                  </div>
+                </div>
+                <div class="password">
+                  <label for="password">password</label>
+                  <input formControlName="password" type="password" class="form-control" id="password">
+                  <div class="errs" *ngIf="registerForm.get('password')?.errors && registerForm.get('password')?.touched">
+                    <p class="text-danger" *ngIf="registerForm.get('password')?.errors?.['required']">password is required</p>
+                    <p class="text-danger" *ngIf="registerForm.get('password')?.errors?.['pattern']">password must have capital letters and numbers</p>
+                  </div>
+                </div>
+                <div class="birthDay col-md-6">
+                  <label for="birthDay">birthDay</label>
+                  <input formControlName="birthDay" type="date" class="form-control" id="birthDay">
+                </div>
+                <div class="gender col-md-6">
+                  <label for="gender">gender</label>
+                  <select formControlName="gender" type="text" class="form-select" id="gender">
+                    <option [ngValue]="null" disabled selected>Select Gender</option>
+                    <option *ngFor="let item of gender" ngValue="{{item.key}}">{{item.value}}</option>
+                  </select>
+                </div>
+                <div class="phone">
+                  <label for="phone">phone</label>
+                  <input formControlName="phone" type="text" class="form-control" id="phone">
+                  <div class="errs" *ngIf="registerForm.get('phone')?.errors && registerForm.get('phone')?.touched">
+                    <p class="text-danger" *ngIf="registerForm.get('phone')?.errors?.['required']">phone is required</p>
+                    <p class="text-danger" *ngIf="registerForm.get('phone')?.errors?.['pattern']">invaild phone number</p>
+                  </div>
+                </div>
+                <div class="city col-md-6">
+                  <label for="city">city</label>
+                  <input formControlName="city" type="text" class="form-control" id="city">
+                  <div class="errs" *ngIf="registerForm.get('city')?.errors && registerForm.get('city')?.touched">
+                    <p class="text-danger" *ngIf="registerForm.get('city')?.errors?.['required']">city is required</p>
+                    <p class="text-danger" *ngIf="registerForm.get('city')?.errors?.['pattern']">city must be letters only ,min letteris is 2 , max letters is 30</p>
+                  </div>
+                </div>
+                <div class="street col-md-6">
+                  <label for="street">street</label>
+                  <input formControlName="street" type="text" class="form-control" id="street">
+                  <div class="errs" *ngIf="registerForm.get('street')?.errors && registerForm.get('street')?.touched">
+                    <p class="text-danger" *ngIf="registerForm.get('street')?.errors?.['required']">street is required</p>
+                    <p class="text-danger" *ngIf="registerForm.get('street')?.errors?.['pattern']">street must be letters only ,min letteris is 2 , max letters is 30</p>
+                  </div>
+                </div>
+                <div class="stateOrProvince col-md-6">
+                  <label for="stateOrProvince">State</label>
+                  <input formControlName="stateOrProvince" type="text" class="form-control" id="stateOrProvince">
+                  <div class="errs" *ngIf="registerForm.get('stateOrProvince')?.errors && registerForm.get('stateOrProvince')?.touched">
+                    <p class="text-danger" *ngIf="registerForm.get('stateOrProvince')?.errors?.['required']">stateOrProvince is required</p>
+                    <p class="text-danger" *ngIf="registerForm.get('stateOrProvince')?.errors?.['pattern']">stateOrProvince must be letters only ,min letteris is 2 , max letters is 30</p>
+                  </div>
+                </div>
+                <div class="country col-md-6">
+                  <label for="country">country</label>
+                  <input formControlName="country" type="text" class="form-control" id="country">
+                  <div class="errs" *ngIf="registerForm.get('country')?.errors && registerForm.get('country')?.touched">
+                    <p class="text-danger" *ngIf="registerForm.get('country')?.errors?.['required']">country is required</p>
+                    <p class="text-danger" *ngIf="registerForm.get('country')?.errors?.['pattern']">country must be letters only ,min letteris is 2 , max letters is 30</p>
+                  </div>
+                </div>
+              </div>
+              <p class="text-danger p-1 m-0">{{errorMessage}}</p>
+              <button [disabled]="registerForm.invalid" type="submit" class="btn btn-primary special w-100 mt-3">Register</button>
+            </form>
+          </div>
+    </div>
+  </div>
+</div>

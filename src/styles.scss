@@ -1,0 +1,93 @@
+/* You can add global styles to this file, and also import other style files */
+
+* {
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.page {
+  height: calc(100% - 64px);
+  color: white;
+  padding: 0 1rem;
+  background: #f1f5f9;
+  &__box {
+    background: #1e293b;
+    margin: 0 -1rem;
+    font-size: 36px;
+  }
+  &__content {
+    min-height: calc(100vh - 178px);
+    border-radius: 10px;
+    margin-top: -.8rem;
+    background: white;
+    color: black;
+    font-size: 2rem;
+    overflow-y: auto;
+  }
+}
+
+th{
+  font-weight: 300;
+  font-size: 1.1rem;
+  color: #1e293b;
+}
+
+.controls button ,.special {
+  background-color: #1e293b  !important;
+  color: #D4A418 !important;
+  font-weight: bold;
+  border: none;
+}
+.controls button:hover ,.special:hover{
+  background-color: #1e293b !important;
+  color: #D4A418 !important;
+  border: none;
+}
+.modal-backdrop {
+  z-index: -1;
+}
+
+.modal input:focus , .modal select:focus , .modal textarea:focus{
+  background-color: #DFF1FF;
+  color: #1e293b ;
+}
+.modal-title{
+  color: #1e293b;
+}
+.form-control , .form-select {
+  color: #1e293b;
+}
+
+td button{
+  background-color: transparent;
+  border: none;
+}
+
+.modal{
+
+  z-index: 999;
+  --bs-modal-margin: 3.75rem;
+}
+.modal-content{
+  background-color: #CBCCFF;
+}
+
+.mat-drawer{
+  z-index: 0 !important;
+}
+
+p{
+  font-size: 1rem;
+  margin: 0 !important;
+}

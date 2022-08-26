@@ -1,0 +1,41 @@
+.images,.info{
+  background-color: white;
+  padding: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: .5rem;
+}
+.page__content{
+  background-color: white;
+}
+.box{
+  width: 90%;
+}
+.image{
+  width: 65%;
+  margin: .5rem auto;
+}
+
+.info h3,h4,p{
+  color: #D4A418;
+  background-color: #1e293b;
+  width: fit-content;
+  padding: .5rem 1rem;
+  border-radius: 4px;
+}
+
+h3{
+  margin: 0 auto;
+}
+span{
+  font-size: 1rem;
+}
+h4{
+  margin-left: .5rem;
+}
+ul{
+  list-style-type: none;
+}
+h6{
+  font-size: 1rem;
+  font-weight: 400;
+}
